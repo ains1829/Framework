@@ -1,0 +1,293 @@
+<config>
+    <ControllerConfig>
+        <Spring>
+            <pack>
+                <package> org.springframework.web.bind.annotation.GetMapping </package>
+                <package> org.springframework.web.bind.annotation.PutMapping </package>
+                <package> org.springframework.web.bind.annotation.PostMapping </package>
+                <package> org.springframework.web.bind.annotation.DeleteMapping </package>
+                <package> org.springframework.web.bind.annotation.RequestMapping </package>
+                <package> org.springframework.web.bind.annotation.RestController</package>
+                <package> org.springframework.web.bind.annotation.RequestBody</package>
+                <package> org.springframework.web.bind.annotation.PathVariable</package>
+                <package> org.springframework.http.ResponseEntity</package>
+                <package> java.util.List</package>
+            </pack>
+            <config-controller>
+                <header>
+                    @RestController            
+                </header>
+                <header>
+                    @RequestMapping("/#nameController#")
+                </header>
+            </config-controller>
+            <standard>
+                <fonction>
+                </fonction>
+                <fonction>
+                    <map>@GetMapping("/list")</map>
+                    <key>list</key>
+                    <type>ResponseEntity&lt;Ressource&gt;</type>
+                    <value>FindAll()</value> 
+                    <content></content>
+                </fonction>
+                <fonction>
+                    <map>@PutMapping("/update/{id}")</map>
+                    <key>update/{id}</key>
+                    <type>ResponseEntity&lt;Void&gt;</type>
+                    <value>update(@PathVariable Integer id)</value>
+                    <content></content>
+                </fonction>
+                <fonction>
+                    <map>@DeleteMapping("/delete/{id}")</map>
+                    <key>delete/{id}</key>
+                    <type>ResponseEntity&lt;Void&gt;</type>
+                    <value>delete(@PathVariable Integer id)</value>
+                    <content></content>
+                </fonction>
+                <fonction>
+                    <map>@PostMapping("/save")</map>
+                    <key>save</key>
+                    <type>ResponseEntity&lt;Void&gt;</type>
+                    <value>Save(@RequestBody Ressource ressource)</value>
+                    <content></content>
+                </fonction>
+            </standard>
+        </Spring>
+        <Apicsharp>
+            <pack>
+                <package> Microsoft.AspNetCore.Mvc</package>
+                <package> System.Collections.Generic</package>
+                <package> Model</package>
+                <package> System</package>
+                <package> Microsoft.EntityFrameworkCore</package>
+                <package> Microsoft.AspNetCore.Http</package>
+            </pack>
+            <config-controller>
+                <header>
+                    [ApiController]        
+                </header>
+                <header>
+                    [Route("/#nameController#/[controller]")]
+                </header>
+            </config-controller>
+            <standard>
+                <fonction>
+                    <map>[HttpPost("Auth")]</map>
+                    <key>auth</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>Authentification([FromBody] #nameController# entity)</value> 
+                    <content>
+                        Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #nameController# user = _context.#name#.FirstOrDefault(u =&gt; u.#label# == entity.#label# and__ u.#password# == entity.#password#) ;
+                        if(user!=null){
+                            dcnr.Add("status" , "200") ;
+                            dcnr.Add("message" , "succes") ;
+                            dcnr.Add("id" ,user.#primamrykeys#) ;
+                        }else{
+                            dcnr.Add("status" , "000") ;
+                            dcnr.Add("message" , "erreur") ;
+                        }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpGet("pagination")] </map>
+                    <key>list</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>Pagination(int iduser , int page_number)</value> 
+                    <content>
+                        Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                        if(id_user == null){
+                            dcnr.Add("status" , "503") ;
+                            dcnr.Add("all" , null) ;
+                            dcnr.Add("pages" , 0) ;
+                        }else{
+                            dcnr.Add("status" , "200") ;
+                            int pageSize = 5 ;
+                            dcnr.Add("all" ,  _context.#name#
+                            .OrderByDescending(d =&gt; d.#primamrykeys#)
+                            .Skip((page_number - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList());
+                            dcnr.Add("pages" , getNbTotalPage(pageSize)) ;
+                        }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>IsPrivate</map>
+                    <key></key>
+                    <type>int</type>
+                    <value>getNbTotalPage(int afficheParPage)</value> 
+                    <content>
+                        int element_total = _context.#name#.Count() ;
+                        if( element_total == 0 || element_total &lt;= afficheParPage )return 1;
+                        int reste = (int) (element_total % afficheParPage);
+                        int quotien = (int) (element_total / afficheParPage); 
+                        if( reste == 0 ){
+                            return quotien;
+                        }
+                        return quotien+1;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpGet("list")] </map>
+                    <key>list</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>GetAll(int iduser)</value> 
+                    <content>
+                       Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                         if(id_user ==null){
+                                dcnr.Add("status" , "503") ;
+                                dcnr.Add("data" , null) ;
+                            }else{
+                                dcnr.Add("status" , "200") ;
+                                dcnr.Add("data" ,_context.#name#.ToList()) ;
+                            }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpGet("findbyid")] </map>
+                    <key>find by id</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>getByid(int iduser , #type_primary# id)</value> 
+                    <content>
+                     Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                        if(id_user == null){
+                            dcnr.Add("status" , "503") ;
+                            dcnr.Add("data" , null) ;
+                        }else{
+                            #nameController# yourattribut = _context.#name#.Find(id);
+                            dcnr.Add("status" , "200") ;
+                            dcnr.Add("data" , yourattribut) ;
+                        }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpPost("update")] </map>
+                    <key>update</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>Update(int iduser , #type_primary# id , [FromBody] #nameController# entity)</value>
+                    <content>
+                    Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                        #nameController# yourattribut = _context.#name#.Find(id);
+                         if(id_user == null){
+                            dcnr.Add("status" , "503") ;
+                            dcnr.Add("data" , null) ;
+                        }else{
+                            if (yourattribut == null){
+                                dcnr.Add("status" , "404") ;
+                                dcnr.Add("data" , null) ;
+                                return dcnr ;
+                            }
+                            ##change##
+                            _context.SaveChanges();
+                            dcnr.Add("status" , "200") ;
+                            dcnr.Add("data" , "update") ;
+                        }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpPost("delete")]</map>
+                    <key>delete</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>Delete(int iduser , #type_primary# id)</value>
+                    <content>
+                    Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                        if(id_user == null){
+                            dcnr.Add("status" , "503") ;
+                            dcnr.Add("data" , null) ;
+                        }else{
+                            var entity = _context.#name#.Find(id);
+                            if (entity == null){
+                                dcnr.Add("status" , "404") ;
+                                dcnr.Add("data" , null) ;
+                                return dcnr ;
+                            }
+                            _context.#name#.Remove(entity);
+                            _context.SaveChanges();
+                            dcnr.Add("status" , "200") ;
+                            dcnr.Add("data" , "Delete") ;
+                        }
+                        return dcnr;
+                    </content>
+                </fonction>
+                <fonction>
+                    <map>[HttpPost("save")]</map>
+                    <key>save</key>
+                    <type>Dictionary&lt;string , object&gt;</type>
+                    <value>Save(int iduser ,[FromBody] #nameController# entity)</value>
+                    <content>
+                    Dictionary&lt;string , object&gt; dcnr = new Dictionary&lt;string , object&gt;();
+                        #AUTH# id_user  = _context.#auth#.Find(iduser) ;
+                        if(id_user == null){
+                            dcnr.Add("status" , "503") ;
+                            dcnr.Add("data" , null) ;
+                        }else{
+                            #generate_id#
+                            var entity_save = new #nameController#  {
+                                #attribut_insert#
+                            } ;
+                            _context.#name#.Add(entity_save);
+                            _context.SaveChanges();
+                             dcnr.Add("status" , "200") ;
+                            dcnr.Add("data" , "insert") ;
+                        }
+                        return dcnr ;
+                    </content>
+                </fonction>
+                <primarykey>
+                    var resulat = _context.#name#.FromSqlRaw("select generate_#name#_id() as #primamrykeys#").Select(e=&gt; e.#primamrykeys#).FirstOrDefault() ;
+                </primarykey>
+                <attribut>
+                    #column# = entity.#column# ,
+                </attribut>
+            </standard>
+        </Apicsharp>
+        <framework>
+            <pack>
+                <package> java.util.List</package>
+            </pack>
+            <config-controller>
+                <header>
+                    @RestApi       
+                </header>
+            </config-controller>
+            <standard>
+                <fonction>
+                    <map>@UrlMapping("/list")</map>
+                    <key>list</key>
+                    <type>List&lt;Ressource&gt;</type>
+                    <value>FindAll()</value> 
+                </fonction>
+                <fonction>
+                    <map>@UrlMapping("/update/{id}")</map>
+                    <key>update/{id}</key>
+                    <type>void</type>
+                    <value>update(@ParamName("id") Integer id)</value>
+                </fonction>
+                <fonction>
+                    <map>@UrlMapping("/delete/{id}")</map>
+                    <key>delete/{id}</key>
+                    <type>void</type>
+                    <value>delete(@ParamName("id") Integer id)</value>
+                </fonction>
+                <fonction>
+                    <map>@UrlMapping("/save")</map>
+                    <key>save</key>
+                    <type>void</type>
+                    <value>Save(@RequestBody Ressource ressource)</value>
+                </fonction>
+            </standard>
+        </framework>
+    </ControllerConfig>
+</config>

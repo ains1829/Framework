@@ -1,0 +1,36 @@
+<!-- Component Sidebar -->
+<app-sidebar></app-sidebar>
+
+<!-- Content -->
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        Acceuil Template Voiture<!-- nom de la table dans BdD -->
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button><!-- Menu hamburger -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+
+    <!-- List -->
+    <ion-list lines="none">
+      <ion-item-sliding *ngFor="let voiture of voit"><!-- Boucle ngFor -->
+        <ion-item [button]="true" detail="true" (click) = "openDetailVoiture(voiture)"><!-- Ouvrir Detail -->
+          <ion-label>{{voiture.matriculation}}</ion-label><!-- nom d'une colonne dans BdD -->
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Bouton Insertion -->
+    <ion-fab  slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button size="small" (click)="go_to_create_voiture()"><!-- Ouvrir Insertion -->
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </ion-content>
+</div>

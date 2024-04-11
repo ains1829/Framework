@@ -1,0 +1,123 @@
+<ionic>
+  <attribut-reference>
+    #label# : any ;
+  </attribut-reference>
+  <init>
+    this.get#TableReferenced#();
+  </init>
+  <call_api>
+    async get#TableReferenced#(){
+    const data = await this.mainService.get_#tableReferenced#_by_id(this.item.#colonne_referenced#);
+    this.#label# = data.#label# ;
+  }
+  </call_api>
+  <content>
+import { Component, OnInit , Input} from '@angular/core';
+import {LoadingController, ModalController } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { MainService } from 'src/app/services/main.service';
+
+@Component({
+  selector: 'app-modal',
+  templateUrl: './modal.page.html',
+  styleUrls: ['./modal.page.scss'],
+})
+export class ModalPage implements OnInit {
+  private loading:any;
+  @Input() item: any;
+  @Input() all : any[] = [];
+  isModalOpen = false;
+  isDeleteAlertOpen = false;
+
+  #attribut_label_referenced#
+
+  constructor( private mainService: MainService,private modalController: ModalController,private animationCtrl: AnimationController,private loadingCtrl: LoadingController) { }
+
+  ngOnInit() {
+    #init_call_api#
+  }
+
+  #call_api#
+
+  async delete#Classe#(#primarykeys#: number|undefined){
+    await this.loadingCtrl.create({
+      message: "Suppression..."
+    }).then((overlay) =&gt; {
+      this.loading = overlay;
+      this.loading.present();
+    });
+    await this.mainService.delete_#classe#(#primarykeys#);
+    await this.loading.dismiss();
+    this.all = this.all.filter(el =&gt; el !== this.item)
+    this.closePopup();
+  }
+  setDeleteOpen(isOpen: boolean){
+    this.isDeleteAlertOpen = isOpen
+  } 
+
+  closePopup(){
+    this.isModalOpen = false;
+    this.modalController.dismiss(this.all);
+  }
+  cancel() {
+    this.modalController.dismiss(null, 'cancel');
+  }
+  confirm() {
+    this.modalController.dismiss(null, 'confirm');
+  }
+  enterAnimation = (baseEl: HTMLElement) =&gt; {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root!.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root!.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+  leaveAnimation = (baseEl: HTMLElement) =&gt; {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
+
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () =&gt; {
+        console.log('Annuler');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () =&gt; {
+        console.log('Confirmer');
+      },
+    },
+  ];
+  setResult(event: Event) {
+    const ev = event as CustomEvent&lt;OverlayEventDetail&lt;string&gt;&gt;;
+    this.isDeleteAlertOpen = false;
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+    if( ev.detail.role == "confirm" ){
+      this.delete#Classe#(this.item.#primarykeys#); 
+    }
+  }
+}
+
+  </content>
+</ionic>

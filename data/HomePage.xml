@@ -1,0 +1,218 @@
+<ionic>
+  <content>
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonModal,LoadingController,ModalController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { AnimationController } from '@ionic/angular';
+import { MainService } from '../../services/main.service';
+import { ModalPage } from '../formulaire/modal/modal.page'
+import { ModifierPage } from '../formulaire/modifier/modifier.page';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+})
+export class HomePage {
+  private loading:any; 
+  @ViewChild(IonModal)
+  modal!: IonModal;
+  #classe#: any[] = [];
+  message = 'Test.';
+  name: string | undefined;
+  // Necessaire  pour les modal
+  isModalOpen = false;
+  isUpdateModalOpen = false;
+  isDeleteAlertOpen = false;
+  data = [];
+  pages: any ;
+  index: number = 0 ;
+  pagesGroup: any ;
+  currentGroup: any ;
+  indexMax!: number ;
+  // page actuel
+  numpage!: number ;
+
+  // Constructeur (attribut apesaina) 
+  constructor(private router:Router,private animationCtrl: AnimationController, private mainService: MainService, private modalController:ModalController, private loadingCtrl: LoadingController) {}
+  
+  // Fonction Init
+  ngOnInit() {
+    
+  }
+  async ionViewWillEnter() {
+    await this.loadingCtrl.create({
+      message: "Chargement..."
+    }).then((overlay) =&gt; {
+      this.loading = overlay;
+      this.loading.present();
+    });
+    const test = await this.mainService.get_pagination_#classe#(1);
+    this.set#Classe#List(test.all);
+    this.pages = this.getRange(test.pages);
+    this.numpage = this.pages[0] ;
+    this.pagesGroup = this.distributePagesIntoGroups();
+    await this.loading.dismiss();
+  }
+  getRange(n: number): number[] {
+    return Array.from({length: n}, (_, i) =&gt; 1+i);
+  }
+  async getPages(num: number){
+    await this.loadingCtrl.create({
+      message: "Chargement..."
+    }).then((overlay) =&gt; {
+      this.loading = overlay;
+      this.loading.present();
+    });
+    const test = await this.mainService.get_pagination_#classe#(num);
+    this.set#Classe#List(test.all);
+    this.pages = this.getRange(test.pages);
+    this.numpage = num
+    await this.loading.dismiss();
+  }
+  distributePagesIntoGroups(): number[][] {
+    const totalPages = this.pages.length;
+    const pageSize = 5;
+    const totalGroups = Math.ceil(totalPages / pageSize);
+    const pageGroups: number[][] = [];
+    let startIndex = 0;
+    for (let i = 0; i &lt; totalGroups; i++) {
+        const endIndex = Math.min(startIndex + pageSize, totalPages);
+        pageGroups.push(this.pages.slice(startIndex, endIndex));
+        startIndex += pageSize;
+    }
+    this.currentGroup = pageGroups[0]; // setter du groupe actuelle par defaut 0 
+    this.indexMax = pageGroups.length-1;
+    return pageGroups;
+  }
+
+  async setNextGroup(){
+    if( this.index &lt; this.pagesGroup.length-1 ){
+      this.index += 1;
+      this.currentGroup = this.pagesGroup[this.index]
+      this.getPages(this.currentGroup[0])
+    }
+  }
+  async setPreviousGroup(){
+    if( this.index &gt; 0 ){
+      this.index -= 1;
+      this.currentGroup = this.pagesGroup[this.index]
+      this.getPages(this.currentGroup[0])
+    }
+  }
+  // Setters ---
+  set#Classe#List(l: any[]){
+    this.#classe# = l;
+  }
+  setOpen(isOpen: boolean) {// DETAIL
+    this.isModalOpen = isOpen;
+  }
+  setUpdateOpen(isOpen: boolean){// UPDATE
+    this.isUpdateModalOpen = isOpen
+  }
+  setDeleteOpen(isOpen: boolean){// DELETE
+    this.isDeleteAlertOpen = isOpen
+  }
+  // Fin setters ---
+
+  // Fonction JS utile pour l'affichage  
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+  onWillDismissUpdate(event: Event) {
+    const ev = event as CustomEvent&lt;OverlayEventDetail&lt;string&gt;&gt;;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }this.setUpdateOpen(false)
+  }
+  
+  // Fonctions CRUD 
+  go_to_create_#classe#(){ // insertion 
+    console.log("Create nouveau #classe# !");
+    this.router.navigate(['/insert_#classe#']);
+  }
+  async openDetail#Classe#(item: any){ // detail -&gt; delete  
+    console.log(item);
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      componentProps: {
+        'item':item ,
+        'all': this.#classe#,
+      }
+    });
+    modal.onDidDismiss().then((data) =&gt; {
+      if (data and__ data.data) {
+        this.#classe# = data.data;
+      }
+    });
+    return await modal.present();
+  }
+  async openUpdate#Classe#(item:any){ // update 
+    console.log("Update loading...");
+    const modal = await this.modalController.create({
+      component: ModifierPage,
+      componentProps: {
+        'item':item
+      }
+    });
+    return await modal.present();
+  }
+  // Animation l'update
+  enterAnimation = (baseEl: HTMLElement) =&gt; {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root!.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root!.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+  leaveAnimation = (baseEl: HTMLElement) =&gt; {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
+  // fin Animation 
+
+  // (Test affichage) pour confirmer un delete ou non
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () =&gt; {
+        console.log('Annuler');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () =&gt; {
+        console.log('Confirmer');
+      },
+    },
+  ];
+  setResult(event: Event) {
+    const ev = event as CustomEvent&lt;OverlayEventDetail&lt;string&gt;&gt;;
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+  }
+
+
+}
+  </content>
+</ionic>

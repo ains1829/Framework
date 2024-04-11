@@ -1,0 +1,42 @@
+<ionic>
+  <label>
+    &lt;ion-item&gt;
+        &lt;ion-label&gt;#Attribut# : {{item.#attribut#}}&lt;/ion-label&gt;
+    &lt;/ion-item&gt;
+    &lt;br/&gt;
+  </label>
+  <content>
+&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-button (click)="closePopup()"&gt;Fermer&lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+&lt;ion-content [fullscreen]="true"&gt;
+  &lt;ion-header [translucent]="true"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title&gt;Page Detail&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+  &lt;ion-card&gt;
+    &lt;ion-card-header&gt;
+      &lt;ion-card-title&gt;Detail&lt;/ion-card-title&gt;
+      &lt;ion-card-subtitle&gt; #Classe# &lt;/ion-card-subtitle&gt;
+    &lt;/ion-card-header&gt;
+    &lt;ion-card-content&gt;
+      #label#
+    &lt;/ion-card-content&gt;
+    &lt;ion-button fill="outline" expand="block" (click)="setDeleteOpen(true)"&gt;
+      &lt;ion-icon slot="icon-only" name="trash" &gt;&lt;/ion-icon&gt;
+    &lt;/ion-button&gt;
+  &lt;/ion-card&gt;
+  &lt;ion-alert
+      [isOpen]="isDeleteAlertOpen"
+      header="Confirmer la suppression du {{item.#primarykeys#}}?"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+  &gt;&lt;/ion-alert&gt;
+&lt;/ion-content&gt;
+  </content>
+</ionic>

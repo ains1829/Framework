@@ -1,0 +1,108 @@
+<ionic>
+  <initapi>
+    this.getAll#Classe#() ;
+  </initapi>
+  <callapi>
+  async getAll#Classe#(){
+    const item = await this.mainService.get_all_#classe#();
+    this.#classe# = item;
+  }
+  </callapi>
+  <classe>
+    #table_referenced# : any[] = [] ;
+  </classe>
+  <attribut>
+    #attribut# : any | undefined ;
+  </attribut>
+  <change_val>
+    this.item.#attribut# = (this.#attribut# === undefined) ? this.item.#attribut# : this.#attribut# ;
+  </change_val>
+  <arguments>this.item.#attribut#</arguments>
+  <content>
+import { Component, Input, OnInit } from '@angular/core';
+import {LoadingController,  ModalController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { MainService } from 'src/app/services/main.service';
+
+@Component({
+  selector: 'app-modifier',
+  templateUrl: './modifier.page.html',
+  styleUrls: ['./modifier.page.scss'],
+})
+export class ModifierPage  implements OnInit {
+  private loading:any;
+  // Props 
+  @Input() item: any;
+  #attributs#
+  #classe_referenced#
+  isUpdateOpen = false;
+  isUpdateAlertOpen = false;
+
+  constructor(
+    private mainService: MainService,
+    private modalController: ModalController,
+    private loadingCtrl: LoadingController
+  ) { }
+
+  ngOnInit() {
+  #init#
+  }
+  async update#Classe#(){
+    this.confirmUpdate();
+    await this.loadingCtrl.create({
+      message: "Modification..."
+    }).then((overlay) =&gt; {
+      this.loading = overlay;
+      this.loading.present();
+    });
+    await this.mainService.update_#classe#(#arguments#);
+    await this.loading.dismiss();
+  }
+  setUpdateOpen(isOpen: boolean){
+    this.isUpdateAlertOpen = isOpen
+  }
+  confirmUpdate(){
+    #change_vals#
+  }
+
+  // Fonction utile pour l'affichage
+  closePopup(){
+    this.isUpdateOpen = false;
+    this.modalController.dismiss();
+  }
+  cancel() {
+    this.modalController.dismiss(null, 'cancel');
+  }
+  confirm() {
+    this.modalController.dismiss(null, 'confirm');
+  }
+  // Update option
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () =&gt; {
+        console.log('Annuler');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () =&gt; {
+        console.log('Confirmer');
+      },
+    },
+  ];
+  setResult(event: Event) {
+    const ev = event as CustomEvent&lt;OverlayEventDetail&lt;string&gt;&gt;;
+    this.isUpdateAlertOpen = false;
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+    if( ev.detail.role == "confirm" ){
+      this.update#Classe#(); // Except ::: si confirm donc appel fonction supprimer 
+    }
+    this.closePopup();
+  }
+  #call_api#
+}
+  </content>
+</ionic>

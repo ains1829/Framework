@@ -1,0 +1,55 @@
+<ionic>
+  <select>
+      &lt;ion-item&gt;
+        &lt;ion-label position="floating"&gt;#table_referenced#&lt;/ion-label&gt;
+        &lt;ion-select placeholder="#table_referenced#" [(ngModel)]="#attribut#"&gt;
+          &lt;ion-select-option *ngFor="let m_item of #table_referenced#" value="{{m_item.#primarykeys#}}"&gt;{{m_item.#label#}}&lt;/ion-select-option&gt;
+        &lt;/ion-select&gt;
+      &lt;/ion-item&gt;
+      &lt;br/&gt;
+  </select>
+  <input>
+     &lt;ion-item&gt;
+        &lt;ion-input
+        label="#attribut#" 
+        labelPlacement="floating" 
+        placeholder="#attribut#"
+        [clearInput]="true"
+        [(ngModel)]="#attribut#"&gt;&lt;/ion-input&gt;
+      &lt;/ion-item&gt;
+      &lt;br/&gt;
+  </input>
+  <content>
+&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-back-button icon="caret-back"&gt;&lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+    &lt;ion-title&gt;Retour&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content [fullscreen]="true"&gt;
+  &lt;ion-header [translucent]="true"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title&gt;Page Ajout&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+  &lt;ion-card&gt;
+    &lt;ion-card-header&gt;
+      &lt;ion-card-title&gt;Formulaire&lt;/ion-card-title&gt;
+      &lt;ion-card-subtitle&gt;INSERTION #Classe# &lt;/ion-card-subtitle&gt;
+    &lt;/ion-card-header&gt;
+  
+    &lt;ion-card-content&gt;
+      #inputs#
+      &lt;ion-button fill="outline" expand="block" (click)="save#Classe#()"&gt;
+        &lt;ion-icon name="add"&gt;&lt;/ion-icon&gt;
+      &lt;/ion-button&gt;
+
+    &lt;/ion-card-content&gt;
+  &lt;/ion-card&gt;
+&lt;/ion-content&gt;
+
+  </content>
+</ionic>

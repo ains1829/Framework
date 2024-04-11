@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="caret-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Retour</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Page Ajout</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- Formulaire d'insertion -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Formulaire</ion-card-title>
+      <ion-card-subtitle>INSERTION</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <!-- BOUCLER les attributs du classes ---------------------- x
+          label ="nom attribut"
+          placeholder ="nom attribut"
+          [(ngModel)] ="nom attribut dans le fichier insert.page.ts"
+      -->
+      <ion-item>
+        <ion-input
+        label="N° Matricule" 
+        labelPlacement="floating" 
+        placeholder="matriculation"
+        [clearInput]="true"
+        [(ngModel)]="matriculation"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="Marque" 
+        labelPlacement="floating" 
+        placeholder="choix marque"
+        [clearInput]="true"
+        [(ngModel)]="idmarque"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="Nb Place" 
+        labelPlacement="floating" 
+        placeholder="place assise"
+        [clearInput]="true"
+        [(ngModel)]="nbPlace"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        labelPlacement="floating" 
+        label="Poids" 
+        value="900"
+        [(ngModel)]="poids"></ion-input>
+      </ion-item>
+      <br/>
+
+      <ion-button fill="outline" expand="block" (click)="saveVoiture()">Valider</ion-button><!-- bouton insertion Fonction save#NomTable() -->
+
+    </ion-card-content>
+  </ion-card>
+  <!-- Fin Formulaire d'insertion -->
+
+</ion-content>

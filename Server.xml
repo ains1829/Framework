@@ -1,0 +1,15 @@
+<Server>
+    <base>
+        <postgres>
+            <user>postgres</user>
+            <password>2005</password>
+        </postgres>
+        <mysql>
+            <user>root</user>
+            <password>root</password>
+        </mysql>
+    </base>
+    <paths>
+        <path>D:\\ITU\\S6\\project\\test_session_id\\</path>
+    </paths>
+</Server>

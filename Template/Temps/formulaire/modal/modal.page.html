@@ -1,0 +1,57 @@
+<!-- Popup pour voir detail  -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closePopup()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Page Detail</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detail</ion-card-title>
+      <ion-card-subtitle>VOITURE<!--Nom table--></ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item><!--Nom attribut : Valeur attribut-->
+        <ion-label>ID: {{item.idvehicule}}</ion-label>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-label>N°: {{item.matriculation}}</ion-label>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-label>Marque: {{item.idmarque}}</ion-label>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-label>Place: {{item.nbPlace}}</ion-label>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-label>Poids: {{item.poids}}</ion-label>
+      </ion-item>
+      <br/>
+
+    </ion-card-content>
+    <!-- Bouton delete -->
+    <ion-button fill="outline" expand="block" (click)="setDeleteOpen(true)">Suprimer</ion-button><!--ouvrir option delete-->
+  </ion-card>
+
+  <!--popup confirmation delete-->
+  <ion-alert
+      [isOpen]="isDeleteAlertOpen"
+      header="Confirmer la suppression {{item.matriculation}}?"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+  ></ion-alert>
+
+</ion-content>

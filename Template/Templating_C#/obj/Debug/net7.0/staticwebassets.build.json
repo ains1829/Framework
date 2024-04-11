@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "NDDjpypUffy1YcmszcO+h37U124vpFc7G7swoRjiqds=",
+  "Source": "rhwebapi",
+  "BasePath": "_content/rhwebapi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

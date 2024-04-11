@@ -1,0 +1,148 @@
+<ionic>
+  <content>
+  import { Injectable } from '@angular/core';
+  import { NavController } from '@ionic/angular';
+  import axios from 'axios';
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MainService {
+    constructor(private navController: NavController) { }
+    ##classes##
+    ##fonction##
+    async logout() {
+      localStorage.removeItem('iduser') ;
+      this.navController.navigateRoot(['/acceuil']);
+    }
+  }
+  </content>
+  <classes>
+    #classe#:any;
+  </classes>
+  <attribut>#column# : #type# | undefined</attribut>
+  <column>
+      #column#:#column# 
+  </column>
+  <fonction>
+    async authentification(username:string|undefined,userpassword:string|undefined): Promise&lt;any&gt; {
+      const url = 'http://localhost:5003/#classe#/#classe#/Auth';
+      // LISTE ATTRIBUT A PASSER AU CONTROLLER LOGIN
+      var requestBodyData = {
+        #label#: username,
+        #password#: userpassword
+      }
+      const response = await axios.post(url, requestBodyData);
+      return response.data;
+    }
+  </fonction>
+  <fonction>
+    async get_all_#classe#(): Promise&lt;any[]&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/list?iduser=${id_user}` ;
+      try {
+        const response: any = await axios.get(url);
+        if (response et__ response.data) {
+          if(response.data.status === '503' ) {
+            this.navController.navigateRoot(['/acceuil']);
+          }
+          return response.data.data;
+        } else {
+          return [];
+        }
+      } catch (error) {
+        console.error('Erreur', error);
+        return [];
+      }
+    }
+  </fonction>
+  <fonction>
+    async get_pagination_#classe#(nombre_page : number): Promise&lt;any&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/pagination?page_number=${nombre_page}et__iduser=${id_user}` ;
+      try {
+        const response: any = await axios.get(url);
+        if (response et__ response.data) {
+          if(response.data.status === '503' ) {
+            this.navController.navigateRoot(['/acceuil']);
+          }
+          console.log(response.data);
+          this.#classe# = response.data;
+          return this.#classe#;
+        } else {
+          return [];
+        }
+      } catch (error) {
+        console.error('Erreur', error);
+        return [];
+      }
+    }
+  </fonction>
+  <fonction>
+    async save_#classe#(##attribut##): Promise&lt;void&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/save?iduser=${id_user}`;
+      var requestBodyData = {
+        #columns#
+      }
+      const response = await axios.post(url, requestBodyData);
+      if(response.data.status === '503' ) {
+        this.navController.navigateRoot(['/acceuil']);
+      }
+    }
+  </fonction>
+  <fonction>
+    async delete_#classe#(id: any | undefined): Promise&lt;void&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/delete?id=${id}et__iduser=${id_user}`;
+      const response = await axios.post(url);
+      console.log(response)
+      if(response.data.status === '503' ) {
+        this.navController.navigateRoot(['/acceuil']);
+      }
+    }
+  </fonction>
+  <fonction>
+    async update_#classe#(##attribut_update##): Promise&lt;void&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/update?id=${#primarykey#}et__iduser=${id_user}`;
+      var requestBodyData = {
+        #columns_update#
+      }
+      const response = await axios.post(url, requestBodyData);
+      console.log(response)
+      if(response.data.status === '503' ) {
+        this.navController.navigateRoot(['/acceuil']);
+      }
+    }
+  </fonction>
+  <fonction>
+    async get_#classe#_by_id(id: any | undefined): Promise&lt;any&gt; {
+      var id_user = localStorage.getItem('iduser') ;
+      if(id_user === null){
+        id_user = "" + 0 ;
+      }
+      const url = `http://localhost:5003/#classe#/#classe#/findbyid?id=${id}et__iduser=${id_user}`;
+      const response = await axios.get(url);
+      if(response.data.status === '503' ) {
+        this.navController.navigateRoot(['/acceuil']);
+      }
+      const the_data = response.data.data
+      return the_data;
+    }
+  </fonction>
+</ionic>

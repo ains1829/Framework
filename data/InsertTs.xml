@@ -1,0 +1,50 @@
+<ionic>
+  <initapi>
+    this.getAll#Classe#() ;
+  </initapi>
+  <callapi>
+  async getAll#Classe#(){
+    const item = await this.mainService.get_all_#classe#();
+    this.#classe# = item;
+  }
+  </callapi>
+  <classe>
+  #table_referenced# : any[] = [] ;
+  </classe>
+  <attribut>
+  #attribut# : #type# | undefined ;
+  </attribut>
+  <attribut_fonction>this.#at#</attribut_fonction>
+  <content>
+import { Component, OnInit } from '@angular/core';
+import { MainService } from '../../../services/main.service';
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-insert',
+  templateUrl: './insert.page.html',
+  styleUrls: ['./insert.page.scss'],
+})
+export class InsertPage implements OnInit {
+  private loading:any; 
+  #attributs# 
+  #classe_referenced#
+    constructor(private router:Router,private mainService: MainService, private loadingCtrl: LoadingController) { }
+  ngOnInit() {
+  #init#
+  }
+  async save#Classe#(){
+    await this.loadingCtrl.create({
+      message: "Insertion..."
+    }).then((overlay) =&gt; {
+      this.loading = overlay;
+      this.loading.present();
+    });
+    await this.mainService.save_#classe#(#attribut_fonction#);
+    await this.loading.dismiss();
+    this.router.navigate(['/liste_#classe#']);
+  }
+  #call_api#
+}
+  </content>
+</ionic>

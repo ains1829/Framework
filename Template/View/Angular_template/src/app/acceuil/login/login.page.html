@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="caret-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Retour</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="content-box">
+    <ion-card class="cards">
+      <ion-card-header>
+        <ion-card-title>Authentification</ion-card-title>
+        <ion-card-subtitle>Entrer votre identifiant crud</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <h6>{{erreur}}</h6>
+        <ion-item class="items">
+          <ion-input [(ngModel)]="username" label="User" placeholder="Enter username"></ion-input>
+        </ion-item>
+        <ion-item class="items">
+          <ion-input type="password" [(ngModel)]="userpassword" label="Password" placeholder="Enter userpass"></ion-input>
+        </ion-item>
+        <ion-button (click)="login()" class="items" expand="block" fill="solid" color="success" shape="round">
+          Log In
+          <ion-icon name="log-in-outline"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

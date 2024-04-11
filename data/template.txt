@@ -1,0 +1,6 @@
+#packaging# #templatepackage;#
+#importing#
+public class #template{#
+    #attributes#
+    public #constructor#(){}
+}

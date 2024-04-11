@@ -1,0 +1,7 @@
+#packaging# #namepackage###endfunction####down##
+#importing#
+#configController#
+#visible# class #NameController#{##down##
+	##configEntity##
+	#MethodeAppeler#
+}

@@ -1,0 +1,5 @@
+#tab###visible## ##type## ##name## ##ca_depend## #down#
+#tab###visible## ##typeretourget## ##beginget####nameCa##() {#down#
+#tab##tab#return this.##name## ##endfunction###tab#}#down#
+#tab###visible## ##typeretourset## ##beginset####nameCa##(##type## ##name##) {#down#
+#tab##tab#this.##name## = ##name## ##endfunction###tab#}#down#

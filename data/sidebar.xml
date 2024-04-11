@@ -1,0 +1,28 @@
+<ionic>
+  <content>
+    &lt;ion-menu side="end" contentId="main-content"&gt;
+      &lt;ion-header&gt;
+        &lt;ion-toolbar&gt;
+          &lt;ion-title&gt;Navigation&lt;/ion-title&gt;
+        &lt;/ion-toolbar&gt;
+      &lt;/ion-header&gt;
+      &lt;ion-content class="ion-padding"&gt;
+        &lt;ion-list lines="none"&gt;
+          &lt;ion-item (click)="logout()"&gt;
+            &lt;ion-icon color="tertiary" slot="start" name="list-circle" size="large"&gt;&lt;/ion-icon&gt;
+            &lt;ion-label&gt;Deconnexion&lt;/ion-label&gt;
+            &lt;ion-note slot="end"&gt;1&lt;/ion-note&gt;
+          &lt;/ion-item&gt;
+          #routing#
+        &lt;/ion-list&gt;
+      &lt;/ion-content&gt;
+    &lt;/ion-menu&gt;
+  </content>
+  <sidebar>
+    &lt;ion-item href="/liste_#classe#"&gt;
+      &lt;ion-icon color="tertiary" slot="start" name="list-circle" size="large"&gt;&lt;/ion-icon&gt;
+      &lt;ion-label&gt;#classe#&lt;/ion-label&gt;
+      &lt;ion-note slot="end"&gt;1&lt;/ion-note&gt;
+    &lt;/ion-item&gt;
+  </sidebar>
+</ionic>

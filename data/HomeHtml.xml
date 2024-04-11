@@ -1,0 +1,65 @@
+<ionic>
+  <content>
+&lt;app-sidebar&gt;&lt;/app-sidebar&gt;
+&lt;div class="ion-page" id="main-content"&gt;
+  &lt;ion-header [translucent]="true"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title&gt;
+        #Classe#
+      &lt;/ion-title&gt;
+      &lt;ion-buttons slot="end"&gt;
+        &lt;ion-menu-button&gt;&lt;/ion-menu-button&gt;
+      &lt;/ion-buttons&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+  &lt;ion-content [fullscreen]="true"&gt;
+    &lt;ion-list lines="none"&gt;
+      &lt;ion-item-sliding *ngFor="let element of #classe#"&gt;
+        &lt;ion-item [button]="true" detail="true"&gt;
+          &lt;ion-label&gt;{{element.#label#}}&lt;/ion-label&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item-options slot="end"&gt;
+          &lt;ion-item-option color="primary" (click) = "openDetail#Classe#(element)"&gt;
+            &lt;ion-icon slot="icon-only" name="open"&gt;&lt;/ion-icon&gt;
+          &lt;/ion-item-option&gt;
+          &lt;ion-item-option color="warning" (click) = "openUpdate#Classe#(element)"&gt;
+            &lt;ion-icon slot="icon-only" name="pencil"&gt;&lt;/ion-icon&gt;
+          &lt;/ion-item-option&gt;
+        &lt;/ion-item-options&gt;
+      &lt;/ion-item-sliding&gt;
+    &lt;/ion-list&gt;
+    &lt;ion-list&gt;
+      &lt;div class="pagination:container"&gt;
+        &lt;div class="pagination:number arrow" (click)="setPreviousGroup()" [ngClass]="{'pagination:disabled': index === 0}"&gt;
+          &lt;span class="arrow:text"&gt;...&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div *ngFor="let i of currentGroup" class="pagination:number" (click)="getPages(i)" [ngClass]="{'pagination:active': numpage === i}"&gt;
+          {{i}}
+        &lt;/div&gt;
+        &lt;div class="pagination:number arrow" (click)="setNextGroup()" [ngClass]="{'pagination:disabled': index === indexMax}"&gt;
+          &lt;span class="arrow:text"&gt;...&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ion-list&gt;
+    &lt;ion-fab  slot="fixed" vertical="bottom" horizontal="end"&gt;
+      &lt;ion-fab-button size="small" (click)="go_to_create_#classe#()"&gt;
+        &lt;ion-icon name="add"&gt;&lt;/ion-icon&gt;
+      &lt;/ion-fab-button&gt;
+    &lt;/ion-fab&gt;
+  &lt;/ion-content&gt;
+  &lt;ion-footer&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-item&gt;
+        &lt;ion-avatar aria-hidden="true" slot="start"&gt;
+          &lt;img alt="" src="assets/angular.svg" /&gt;
+        &lt;/ion-avatar&gt;
+        &lt;ion-avatar aria-hidden="true" slot="start"&gt;
+          &lt;img alt="" src="assets/c-logo.png" /&gt;
+        &lt;/ion-avatar&gt;
+      &lt;/ion-item&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-footer&gt;
+&lt;/div&gt;
+
+  </content>
+</ionic>

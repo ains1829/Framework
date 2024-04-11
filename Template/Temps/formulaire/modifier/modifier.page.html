@@ -1,0 +1,84 @@
+<!-- Popup pour voir detail  -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closePopup()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Page Modification</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detail</ion-card-title>
+      <ion-card-subtitle>VOITURE<!--Nom table--></ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        <ion-input
+        label="ID" 
+        labelPlacement="floating" 
+        placeholder="ID vehicule"
+        [clearInput]="true"
+        [(ngModel)]="item.idvehicule"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="N° matriculation" 
+        labelPlacement="floating" 
+        placeholder="matriculation"
+        [clearInput]="true"
+        [(ngModel)]="item.matriculation"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="ID Marque" 
+        labelPlacement="floating" 
+        placeholder="marque"
+        [clearInput]="true"
+        [(ngModel)]="item.idmarque"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="Nb place" 
+        labelPlacement="floating" 
+        placeholder="Nb place"
+        [clearInput]="true"
+        [(ngModel)]="item.nbPlace"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-input
+        label="Poids" 
+        labelPlacement="floating" 
+        placeholder="Poids"
+        [clearInput]="true"
+        [(ngModel)]="item.poids"></ion-input>
+      </ion-item>
+      <br/>
+
+    </ion-card-content>
+    <!-- Bouton update -->
+    <ion-button fill="solid" expand="block" (click)="setUpdateOpen(true)" color="success" shape="round">
+        <ion-icon slot="icon-only" name="create" ></ion-icon>
+    </ion-button><!--ouvrir option delete-->
+  </ion-card>
+
+  <!--popup confirmation delete-->
+  <ion-alert
+      [isOpen]="isUpdateAlertOpen"
+      header="Confirmer la modification {{item.matriculation}}?"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+  ></ion-alert>
+
+</ion-content>

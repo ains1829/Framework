@@ -1,0 +1,53 @@
+<ionic>
+  <content>
+import { NgModule } from '@angular/core';
+import axios from 'axios';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'acceuil',
+    pathMatch: 'full'
+  },
+  {
+    path: 'acceuil',
+    loadChildren: () =&gt; import('./acceuil/acceuil.module').then( m =&gt; m.AcceuilPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () =&gt; import('./acceuil/login/login.module').then( m =&gt; m.LoginPageModule)
+  },
+  {
+    path: 'acceuil/home',
+    loadChildren: () =&gt; import('./acceuil/home/home.module').then( m =&gt; m.HomePageModule)
+  },
+  //routing//
+];
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+  </content>
+  <fonction>
+  {
+    path: 'liste_#classe#',
+    loadChildren: () =&gt; import('./#classe#/home/home.module').then( m =&gt; m.HomePageModule)
+  },
+  </fonction>
+  <fonction>
+  {
+    path: 'insert_#classe#',
+    loadChildren: () =&gt; import('./#classe#/formulaire/insert/insert.module').then( m =&gt; m.InsertPageModule)
+  },
+  </fonction>
+  <fonction>
+  {
+    path: '#classe#_modal',
+    loadChildren: () =&gt; import('./#classe#/formulaire/modal/modal.module').then( m =&gt; m.ModalPageModule)
+  },
+  </fonction>
+</ionic>

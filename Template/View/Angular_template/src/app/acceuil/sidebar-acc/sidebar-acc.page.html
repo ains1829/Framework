@@ -1,0 +1,25 @@
+<!-- Sidebar + #nom de la table dans BdD -->
+<ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Navigation</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <!-- List des crud disponible -->
+    <ion-list lines="none">
+      <ion-item href="/home/voiture"><!-- forme du lien : /dossier/nom_table_BdD -->
+        <ion-icon color="tertiary" slot="start" name="list-circle" size="large"></ion-icon>
+        <ion-label>CRUD Voiture</ion-label>
+        <ion-note slot="end">6</ion-note>
+      </ion-item>
+      <ion-item href="/home/marque">
+        <ion-icon color="tertiary" slot="start" name="list-circle" size="large"></ion-icon>
+        <ion-label>CRUD Marque</ion-label>
+        <ion-note slot="end">1</ion-note>
+      </ion-item>
+      
+    </ion-list>
+  </ion-content>
+</ion-menu>

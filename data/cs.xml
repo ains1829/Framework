@@ -1,0 +1,61 @@
+<config>
+    <function>
+        <c> {get ; set ;} </c>
+        <dbset>DbSet&lt;#nameclasses#&gt;</dbset>
+        <visible>public</visible>
+        <private>private</private>
+        <beginget>get</beginget>
+        <beginset>set</beginset>
+        <endfunction>;</endfunction>
+        <exception>throw new Exception("message")</exception>
+        <entity> modelBuilder.Entity &lt;#nameclasses#&gt;().HasKey(l #syntaxe# l.#primary#);</entity>
+        <configentity>
+            private readonly AppDbContext _context;
+            public #nameclasses#Controller(AppDbContext context)
+            {
+                _context = context;
+            }
+        </configentity>
+    </function>
+    <java>
+        <package>package</package> 
+        <import>import</import> 
+    </java>
+    <csharp>
+        <package>namespace</package> 
+        <import>using</import> 
+    </csharp>
+    <typeRetour>
+        <java>
+            <Double>double</Double>
+            <Char>char</Char>
+            <Float>float</Float>
+            <Int>int</Int>
+            <TimeStamp>LocalDateTime</TimeStamp>
+            <Boolean>boolean</Boolean>
+            <Time>Time</Time>
+            <Date>Date</Date>
+            <String>String</String>
+        </java>
+        <csharp>
+            <Double>double</Double>
+            <Char>char</Char>
+            <Float>float</Float>
+            <Int>int</Int>
+            <TimeStamp>DateTime</TimeStamp>
+            <Boolean>bool</Boolean>
+            <Time>TimeSpan</Time>
+            <Date>DateTime</Date>
+            <String>string</String>
+        </csharp>
+    </typeRetour>
+    <libs>
+        <java>
+            <Date>java.sql.Date</Date>
+            <LocalDateTime>java.time.LocalDateTime</LocalDateTime>
+            <Time>java.sql.Time</Time>
+        </java>
+    </libs>
+</config>
+
+<!-- {doubles , chars , floats , ints , TimeSpans , Boo , Times , Dates , Strins} -->

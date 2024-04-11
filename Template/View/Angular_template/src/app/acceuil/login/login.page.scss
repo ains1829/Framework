@@ -1,0 +1,29 @@
+.content-box{
+    width: 90%;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(-50%,-50%);                               
+}
+.content-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+.content-subtitle{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cards{
+    box-shadow: none;
+}
+.items{
+    margin-bottom: 2rem;
+}
